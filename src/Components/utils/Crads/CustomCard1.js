@@ -1,44 +1,57 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { Progress } from 'antd';
+import React from "react";
+import ProgressBar from "../Progress Bars/ProgressBarBootstrap";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 
+import NotificationImportantIcon from "@material-ui/icons/NotificationImportant";
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import SecurityIcon from "@material-ui/icons/Security";
+import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
 
-const useStyles = makeStyles({
-  card: {
-    position: 'absolute',
-    left:280,
-    maxWidth: 345,
+const card_icons = [
+  {
+    title: "Engagement",
+    icon: <BusinessCenterIcon></BusinessCenterIcon>
   },
-});
+  {
+    title: "Well Being",
+    icon: <SecurityIcon></SecurityIcon>
+  },
+  {
+    title: "Turn Over",
+    icon: <AttachMoneyIcon></AttachMoneyIcon>
+  },
+  {
+    title: "Stress",
+    icon: <NotificationImportantIcon />
+  }
+];
 
-export default function ImgMediaCard() {
-  const classes = useStyles();
-
+function MyCard(props) {
   return (
-    <Card className={classes.card}>
-      <CardActionArea>
-        <div> <Progress percent={50} status="active"  width="200px"/>
-        </div>
-     
-        
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
-          </Typography>
-          
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>
+    <div
+      style={{ boxShadow: "rgba(0,0,0,.1) 0px 4px 8px 0px" }}
+      className="card my-2 mx-2 px-1 py-2 w-25 rounded border border-muted"
+    >
+      <div
+        className="container container-fluid"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-end"
+        }}
+      >
+        {card_icons.map((field, index) => (
+          <ListItemIcon>
+            {field.title === props.name ? field.icon : ""}
+          </ListItemIcon>
+        ))}
+      </div>
+      <div className="card-body">
+        <h5 className="card-title">{props.name}</h5>
+        <ProgressBar color={props.color} progress={props.progress} />
+      </div>
+    </div>
   );
 }
+
+export default MyCard;
